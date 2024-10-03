@@ -1,3 +1,5 @@
+using Webshop.Web.Services;
+
 namespace Webshop.Web
 {
 	public class Program
@@ -8,8 +10,11 @@ namespace Webshop.Web
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-
-			var app = builder.Build();
+			builder.Services.AddHttpClient<CategoryService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7016/api/v1/");
+            });
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
